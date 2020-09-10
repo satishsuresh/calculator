@@ -1,65 +1,90 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { Component } from "react";
 
-export default function Home() {
+ export default class calci extends Component {
+   constructor(){
+     super();
+     this.state = {
+      input: null,
+      result:0,
+     };
+     this.isChange = this.isChange.bind(this);
+     this.operation = this.operation.bind(this);
+     this.add = this.add.bind(this);
+     this.sub = this.sub.bind(this);
+     this.mux = this.mux.bind(this);
+     this.div = this.div.bind(this);
+    }
+
+    isChange(event) {
+      this.setState({
+        input: event.target.value, 
+      });
+      console.log(event.target.value);
+    }
+    
+    add() {
+      this.setState({
+        input: this.state.input + "+", 
+      });
+    }
+    sub() {
+      this.setState({
+        input: this.state.input + "-", 
+      });
+    }
+    mux() {
+      this.setState({
+        input: this.state.input + "*", 
+      });
+    }
+    div() {
+      this.setState({
+        input: this.state.input + "/", 
+      });
+    }
+    
+
+
+operation(operator) {
+   console.log(this.state.input)
+   var a=this.state.input;
+   if(a.includes("+")){
+     var sum=this.state.input.split("+")
+     var result=parseInt(sum[0])+parseInt(sum[1]);
+     this.setState({input:result})
+    }
+    else if(a.includes("-")){
+      var sum=this.state.input.split("-")
+      var result=parseInt(sum[0])-parseInt(sum[1]);
+      this.setState({input:result})
+     }
+     else if(a.includes("*")){
+      var sum=this.state.input.split("*")
+      var result=parseInt(sum[0])*parseInt(sum[1]);
+      this.setState({input:result})
+     }
+     else if(a.includes("/")){
+      var sum=this.state.input.split("/")
+      var result=parseInt(sum[0])/parseInt(sum[1]);
+      this.setState({input:result})
+     }
+    }
+render() {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+    <div className="container">
+      <div className="row mt-5 mb-5">
+        <div className="col-md-6">
+          <input  name="input" className="form-control" placeholder="input" value={this.state.input} onChange={this.isChange}/>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
-}
+       
+        <button className="btn btn-primary" onClick={this.add}>+ </button>
+        <button className="btn btn-primary" onClick={this.sub}>- </button>
+        <button className="btn btn-primary" onClick={this.mux}>* </button>
+        <button className="btn btn-primary" onClick={this.div}>/ </button>
+        <button className="btn btn-primary" onClick={this.operation}>= </button>
+        {this.state.result != 0 ? <div>{this.state.result}</div> : ""}
+        </div>
+      </div>
+  );
+  }
+ }
