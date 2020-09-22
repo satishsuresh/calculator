@@ -23,37 +23,80 @@ import { Component } from "react";
     }
     
     add() {
+      if(this.state.input.slice(-1)=="+"||this.state.input.slice(-1)=="-"||this.state.input.slice(-1)=="*"||this.state.input.slice(-1)=="/" ){
+      
+        this.setState({
+        
+          input: this.state.input.replace(this.state.input.slice(-1),"+")
+  
+        });
+      }else {
       this.setState({
-        input: this.state.input + "+", 
+        
+        input: this.state.input + "+",
+
       });
-    }
+
+        }
+          }
+
     sub() {
+        if(this.state.input.slice(-1)=="+"||this.state.input.slice(-1)=="-"||this.state.input.slice(-1)=="*"||this.state.input.slice(-1)=="/" ){
+          console.log(this.state.input.slice(-1));
+          this.setState({
+          
+            input: this.state.input.replace(this.state.input.slice(-1),"-")
+    
+          });
+        }else {
       this.setState({
         input: this.state.input + "-", 
       });
     }
+  }
     mux() {
+        if(this.state.input.slice(-1)=="+"||this.state.input.slice(-1)=="-"||this.state.input.slice(-1)=="*"||this.state.input.slice(-1)=="/" ){
+          this.setState({
+          
+            input: this.state.input.replace(this.state.input.slice(-1),"*")
+    
+          });
+        }else{
       this.setState({
         input: this.state.input + "*", 
       });
+      console.log(this.state.input);
     }
+  }
     div() {
+        if(this.state.input.slice(-1)=="+"||this.state.input.slice(-1)=="-"||this.state.input.slice(-1)=="*"||this.state.input.slice(-1)=="/" ){
+          this.setState({
+          
+            input: this.state.input.replace(this.state.input.slice(-1),"/")
+    
+          });
+        }else{
       this.setState({
         input: this.state.input + "/", 
       });
     }
+  }
     
 
 
 operation(operator) {
    console.log(this.state.input)
    var a=this.state.input;
-   if(a.includes("+")){
+   var b=this.state.input1;
+   var sum=this.state.input;
+
+     if(a.includes("+")){
      var sum=this.state.input.split("+")
      var result=parseInt(sum[0])+parseInt(sum[1]);
      this.setState({input:result})
     }
-    else if(a.includes("-")){
+    
+     else if(a.includes("-")){
       var sum=this.state.input.split("-")
       var result=parseInt(sum[0])-parseInt(sum[1]);
       this.setState({input:result})
@@ -69,12 +112,14 @@ operation(operator) {
       this.setState({input:result})
      }
     }
+    
 render() {
   return (
     <div className="container">
       <div className="row mt-5 mb-5">
         <div className="col-md-6">
           <input  name="input" className="form-control" placeholder="input" value={this.state.input} onChange={this.isChange}/>
+          
         </div>
        
         <button className="btn btn-primary" onClick={this.add}>+ </button>
